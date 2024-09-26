@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph with Math Functions</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+    <style>
+        .node circle {
+            fill: #69b3a2;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+        .node text {
+            font-size: 14px;
+            pointer-events: none;
+        }
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <svg width="960" height="600"></svg>
+
+    <script>
+        // Data: Nodes with functions and edges (links)
+        const graph = {
+            nodes: [
+                { id: 1, name: 'f(x) = x^2', description: 'Quadratic function' },
+                { id: 2, name: '\\int_0^1 x \\, dx', description: 'Definite integral' },
+                { id: 3, name: '\\frac{dy}{dx} = 2x', description: 'Derivative' },
+                { id: 4, name: 'e^{i\\pi} + 1 = 0', description: 'Euler\'s Identity' }
+            ],
+            links: [
+                { source: 1, target: 2 },
+                { source: 2, target: 3 },
+                { source: 3, target: 4 },
+                { source: 4, target: 1 }
+            ]
+        };
+
+        const svg = d3.select("svg");
+        const width = +svg.attr("width");
+        const height = +svg.attr("height");
+
+        const simulation = d3.forceSimulation(graph.nodes)
+            .force("link", d3.forceLink(graph.links).id(d => d.id).distance(150))
+            .force("charge", d3.forceManyBody().strength(-300))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                svgGroup.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Group to apply zooming/panning
+        const svgGroup = svg.append("g");
+
+        // Add links (edges)
+        const link = svgGroup.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(graph.links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke-width", 2);
+
+        // Add nodes
+        const node = svgGroup.append("g")
+            .attr("class", "nodes")
+            .selectAll("g")
+            .data(graph.nodes)
+            .enter().append("g");
+
+        // Draw circles for nodes
+        node.append("circle")
+            .attr("r", 20)
+            .attr("fill", "#69b3a2");
+
+        // Add LaTeX-styled name and description
+        node.append("foreignObject")
+            .attr("width", 200)
+            .attr("height", 60)
+            .attr("x", 25)
+            .attr("y", -30)
+            .append("xhtml:div")
+            .html(d => `
+                <div style="font-size: 14px;">
+                    <div>$$${d.name}$$</div>
+                    <div>${d.description}</div>
+                </div>
+            `);
+
+        // Tick function to update positions
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+
+        });
+    </script>
+</body>
+</html>

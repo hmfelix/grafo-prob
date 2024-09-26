@@ -1,0 +1,26 @@
+{
+    "nodes": [
+        {"id": "ax-01", "type": "ax", "subtype": "ax", "name": "Axioma da Verdade", "description": "$$\\exists V \\in \\mathbb{U} : V$$ é verdade e é única"},
+        {"id": "ax-02", "type": "ax", "subtype": "ax", "name": "Axioma da Mentira", "description": "$$\\forall M \\in \\mathbb{U} : M \\neq V, M \\equiv$$ mentira"},
+        {"id": "def-01", "type": "def", "subtype": "def", "name": "Frase", "description": "Uma frase contém uma verdade ou uma mentira"},
+        {"id": "def-02", "type": "def", "subtype": "def", "name": "Conjunto de frases", "description": "Uma coleção de frases"},
+        {"id": "eg-01", "type": "eg", "subtype": "eg", "name": "Conjunto universo", "description": "$$U$$ é o conjunto de todas as frases formuláveis"},
+        {"id": "pro-01", "type": "res", "subtype": "pro", "name": "Todo conjunto soma 1", "description": {"hypothesis": "$$X$$ conjunto de frases", "thesis": "$$X$$ só contém uma verdade", "proof": "Deixada como exercício"}},
+        {"id": "pro-02", "type": "res", "subtype": "pro", "name": "Infinitude das mentiras", "description": {"hypothesis": "$$X$$ conjunto infinito de frases", "thesis": "mentiras são infinitas", "proof": "Deixada como exercício"}},
+        {"id": "lem-01", "type": "res", "subtype": "lem", "name": "Frases são não-enumeráveis", "description": {"hypothesis": "$$S$$ conjunto finito de símbolos", "thesis": "frases são não-enumerárveis", "proof": "Deixada como exercício"}},
+        {"id": "teo-01", "type": "res", "subtype": "teo", "name": "Mentiras são não-enumeráveis", "description": {"hypothesis": "$$X$$ conjunto de frases", "thesis": "mentiras são não-enumeráveis", "proof": "Deixada como exercício"}}
+    ],
+
+    "edges": [
+        {"source": "ax-01", "target": "def-01", "where":"description"},
+        {"source": "ax-02", "target": "def-01", "where":"description"},
+        {"source": "def-01", "target": "def-02", "where":"description"},
+        {"source": "def-02", "target": "eg-01", "where":"description"},
+        {"source": "ax-01", "target": "pro-01", "where":"proof"},
+        {"source": "ax-02", "target": "pro-02", "where":"proof"},
+        {"source": "def-02", "target": "pro-02", "where":"proof"},
+        {"source": "def-01", "target": "lem-01", "where":"description"},
+        {"source": "def-02", "target": "teo-01", "where":"hypothesis"},
+        {"source": "lem-01", "target": "teo-01", "where":"proof"}
+    ]
+}

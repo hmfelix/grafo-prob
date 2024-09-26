@@ -1,0 +1,32 @@
+body {
+    margin: 30px;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
+}
+h1 {
+    margin-bottom: 20px;
+}
+
+.node {
+    font-size: 20px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: white;
+}
+
+.node.ax {
+    border: 2px solid red;
+}
+
+.node.def {
+    border: 2px solid orange;
+}
+
+.node.res {
+    border: 2px solid blue;
+}
+
+.node.eg {
+    border: 2px solid green;
+}

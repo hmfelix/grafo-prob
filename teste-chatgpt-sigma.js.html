@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafo de Teoria da Probabilidade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sigma@2.3.0/build/sigma.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <h1>Bem-vindo ao meu site!</h1>
+    <p>Veja abaixo o meu protótipo de grafo:</p>
+    <div id="grafo-container" style="width: 800px; height: 600px; border: 1px solid black; position: relative;"></div>
+
+    <script>
+        // Cria um contêiner para o grafo
+        const container = document.getElementById('grafo-container');
+
+        // Configura o Sigma.js
+        const graph = {
+            nodes: [
+                { id: 'n0', label: 'Node 0', x: 0, y: 0, size: 1, color: '#f00' },
+                { id: 'n1', label: 'Node 1', x: 1, y: 1, size: 1, color: '#0f0' }
+            ],
+            edges: [
+                { id: 'e0', source: 'n0', target: 'n1', size: 1, color: '#ccc' }
+            ]
+        };
+
+        const renderer = new sigma({
+            graph: graph,
+            container: container,
+            settings: {
+                defaultNodeColor: '#ec5148',
+                defaultEdgeColor: '#c0c0c0'
+            }
+        });
+
+        // Adiciona um elemento de texto ao contêiner
+        const textElement = document.createElement('div');
+        textElement.style.position = 'absolute';
+        textElement.style.left = '50px';
+        textElement.style.top = '50px';
+        textElement.style.fontFamily = 'sans-serif';
+        textElement.style.fontSize = '20px';
+        textElement.style.color = 'black';
+        textElement.innerText = 'Olá, Sigma.js!';
+        container.appendChild(textElement);
+
+        // Adiciona um elemento de equação ao contêiner
+        const equationElement = document.createElement('div');
+        equationElement.style.position = 'absolute';
+        equationElement.style.left = '500px';
+        equationElement.style.top = '400px';
+        equationElement.style.fontSize = '20px';
+        equationElement.innerHTML = '\\(E = mc^2\\)';
+        container.appendChild(equationElement);
+
+        // Chama MathJax para renderizar a equação
+        MathJax.typeset();
+    </script>
+</body>
+</html>

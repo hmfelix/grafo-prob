@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafo de Teoria da Probabilidade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <h1>Bem-vindo ao meu site!</h1>
+    <p>Veja abaixo o meu protótipo de grafo:</p>
+    <svg id="graph" style="width: 800px; height: 600px; border: 1px solid black;"></svg>
+
+    <script>
+
+        const svg = d3.select("#graph")
+
+        // Adiciona um grupo (g) que conterá todos os elementos do gráfico
+        // Isso facilita a aplicação de transformações de zoom e pan a todos os elementos simultaneamente
+        const g = svg.append("g");
+
+        const zoom = d3.zoom()
+            .scaleExtent([0.5, 5]) // Define os limites de zoom
+            .on("zoom", event => {
+                g.attr("transform", event.transform); // Aplica a transformação de zoom e pan
+            });
+        
+        svg.call(zoom);
+
+        
+        
+        // Funções do algoritmo ingênuo de posicionamento        
+
+        function naiveHorizontalPostion(node) {
+            const id = node.id;
+            const horizontal_position = id.split("-")[1];
+            let result;
+            if (horizontal_position == "01") {
+                result = "25%";
+            } else {
+                result = "55%";
+            }
+            return result;
+        }
+
+        function naiveVerticalPosition(node) {
+            const subtype = node.subtype;
+            let result;
+            if (subtype == "ax") {
+                result = "10%";
+            } else if (subtype == "def") {
+                result = "25%";
+            } else if (subtype == "eg") {
+                result = "35%";
+            } else if (subtype == "pro") {
+                result = "50%";
+            } else if (subtype == "lem") {
+                result = "65%";
+            } else if (subtype == "teo") {
+                result = "75%";
+            }
+
+            return result;
+        }
+
+        function naiveRenderNode(node) {
+            // construindo textos para html:
+            let open_div_CSS_class = '<div class="node ' + node.type + '">'
+            let close_div = "<\div>"
+            let child_div_name = '<div class="node_name" style="font-size: 3px">' + node.name + close_div
+            let child_div_description = '<div class="node_description">' + node.description + close_div
+            
+            let node_html_text = open_div_CSS_class + child_div_name + child_div_description + close_div
+
+            // adicionando o elemento
+            g.append("foreignObject")
+                .attr("y", naiveVerticalPosition(node))
+                .attr("x", naiveHorizontalPostion(node))
+                .attr("width", "200")
+                .attr("height", "100")
+                .attr("font-size", "5px")
+                .html(node_html_text);
+        }
+        
+        function naiveRenderGraph(graph) {
+            // ideia geral: nos de um mesmo subtipo na mesma linha horizontal
+            // o grafo de protótipo só tem no máximo dois nós de cada subtipo
+            // estes ficarão dispostos lado a lado
+            // os demais centralizados
+            // estas funcionalidades estao nas funcoes naiveHorizontalPosition e naiveVerticalPosition
+            let nodes = graph.nodes;
+            let edges = graph.edges;
+
+            for (node of nodes) {
+                naiveRenderNode(node);
+            }
+
+            MathJax.typeset();
+
+        }
+
+
+        // importando o JSON do grafo:
+        // variavel para estocar o grafo
+        let graph = [];
+
+        fetch("grafo-protótipo.json")
+            .then(response => response.json())
+            .then( (data) => {
+                graph = data;
+                console.log(data);
+                naiveRenderGraph(graph);
+                
+            
+            
+            
+            // ao que parece eu tenho q fazer tudo aqui dentro por causa da assincronicidade
+            // estudar melhor isso
+
+            });
+
+
+
+        // próxima tarefa:
+        // fazer github
+
+
+        
+        // Chama MathJax para renderizar as equações
+        MathJax.typeset();
+ 
+    </script>
+</body>
+</html>
