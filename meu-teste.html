@@ -80,8 +80,8 @@
         function naiveRenderNode(node) {
             // construindo textos para html:
             let open_div_CSS_class = '<div class="node ' + node.type + '">'
-            let close_div = "<\div>"
-            let child_div_name = '<div class="node_name" style="font-size: 3px">' + node.name + close_div
+            let close_div = "</div>"
+            let child_div_name = '<div class="' + node.type + '_name">' + node.name + close_div
             let child_div_description = '<div class="node_description">' + node.description + close_div
             
             let node_html_text = open_div_CSS_class + child_div_name + child_div_description + close_div
@@ -92,7 +92,6 @@
                 .attr("x", naiveHorizontalPostion(node))
                 .attr("width", "200")
                 .attr("height", "100")
-                .attr("font-size", "5px")
                 .html(node_html_text);
         }
         
@@ -140,14 +139,22 @@
 
 
         // próximas tarefas:
+
+        // estudar obsidian e logseq
         
         // aparência dos nós:
-        // melhorar a aparência dos nós
-        // consertar MathJax (quebra de linha)
+        // modularizar e hierarquizar snippets + CSS que regulam os subcampos dos nós
+        // inserir campo para exibir o tipo do nó (def, teo etc)
+        // inserir subcampos da descrição / prova de teoremas
+        // inserir interatividade de rolamento da descrição on hover
+        // pensar no tamanho dos nós, como padronizar e se pá estender horizontalmente
+        // zoom out e transição
+        // inserir botão para apresentar contexto, explicação, anexos / hyperlinks, e imagens
+
         // fechar uma aparência pré-definitiva estática (a menos de uma escala)
 
         // JS:
-        // modularizar funções - e snippets de html que alimentam funções ?
+        // modularizar código
         // entender como funciona esse objeto promise de JS
 
         // layout:

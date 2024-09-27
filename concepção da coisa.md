@@ -46,6 +46,8 @@ Todo nó tem que ter tipo e subtipo para facilitar o código
     - resultado que eu obtive de maneira independente
 - indicadores de análise de redes (e.g. centralidade)
 - data de criação do nó
+- talvez um campo de contexto ou explicação da ideia, que pode ser opcionalmente exibido
+- talvez a possibilidade de imagens (tipo gráficos ou tikz do latex)
 
 
 ## Posicionamento dos nós e outras questões espaciais:
