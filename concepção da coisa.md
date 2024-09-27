@@ -45,6 +45,7 @@ Todo nó tem que ter tipo e subtipo para facilitar o código
     - apêndice
     - resultado que eu obtive de maneira independente
 - indicadores de análise de redes (e.g. centralidade)
+- data de criação do nó
 
 
 ## Posicionamento dos nós e outras questões espaciais:
@@ -59,7 +60,7 @@ Todo nó tem que ter tipo e subtipo para facilitar o código
     - talvez capítulo ou seção do livro, para ajudar no posicionamento via progressão
 - Necessário algoritmo para cálculo do espaço ocupado por cada nó baseado em sua descrição
     - e para o cáculo da distância do exemplo? ver em interatividade
-- Necessário haver uma constante de escala para mudar todos os elementos (exemplo, padding, grossura de bordas, tamanho de fontes, espaçamento relativo etc)
+- Necessário haver uma constante de escala para mudar todos os elementos (exemplo, padding, grossura de bordas, raio de curvatura de bordas curvas, tamanho de fontes, espaçamento relativo etc)
     - é possível fazer escalas extremamente pequenas?
 
 
@@ -76,6 +77,7 @@ Todo nó tem que ter tipo e subtipo para facilitar o código
     - propriedades-corolárias
     - resultados imediatos de definições
     - SERÁ QUE ISSO TERIA DE SER MANUAL OU PODERIA SER AUTOMATIZADO?
+- data de criação da aresta
 
 Acho que alguns desses atributos deverão ser calculados separadamente no graphology
 
@@ -98,7 +100,7 @@ Acho que alguns desses atributos deverão ser calculados separadamente no grapho
     - Algoritmos de clusterização
     - Possibilidade de arestas que vêem só os nós de um tipo conectados ao nó em questão, e também separando por jusante e montante, exemplo: ver os resultados anteriores que levam ao resultado em questão; ver as dependências de um nó
     - Em uma primeira versão do projeto, acho que tudo teria que ser pré-computado, até para poder ser visualizado no Github. Teria que pensar em como estocar isso. Por exemplo, um caminho do item anterior é algo elaborado, seria um objeto json à parte?
-
+- interface de criação de nós e arestas, registrando a data de criação, para futuro estudo da evolução temporal da construção de conhecimento!
 
 ## Visualização
 
@@ -113,7 +115,6 @@ Acho que alguns desses atributos deverão ser calculados separadamente no grapho
 - Dependências externas nas laterais
 - Talvez indicação/marcador/coloração de resultados que eu mesmo obtive, resultados ainda não verificados etc
 - Deve haver uma escala geral de visualização. Isso é difícil porque tudo é afetado, to tamanho da fonte ao posicionamento dos nós à grossura das borders
-
 
 ## Facilidades
 
